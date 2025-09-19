@@ -87,4 +87,3 @@
 (= (tail Nil) Nil)
 (= (tail (Cons $a $b)) $b)
 ;! (tail (Cons A (Cons B (Cons C Nil))))
-
