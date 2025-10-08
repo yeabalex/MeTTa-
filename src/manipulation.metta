@@ -18,16 +18,13 @@
 (= (foldl $f $acc Nil) $acc)
 (= (foldl $f $acc (Cons $a $b))
     (foldl $f ($f $acc $a) $b))
-(= (sum $acc $x) (+ $acc $x))
-;!(foldl sum 0 (Cons 1 (Cons 2 (Cons 3 Nil))))
+;!(foldl + 0 (Cons 1 (Cons 2 (Cons 3 Nil))))
 
 ;foldr
 (= (foldr $f Nil $acc) $acc)
 (= (foldr $f (Cons $x $xs) $acc)
    ($f $x (foldr $f $xs $acc)))
-
-(= (subtract $x $y) (- $x $y))
-;! (foldr subtract (Cons 1 (Cons 2 (Cons 3 Nil))) 0) 
+;! (foldr - (Cons 1 (Cons 2 (Cons 3 Nil))) 0) 
 
 
 ;reverse 
@@ -46,13 +43,13 @@
        (found $x $b)))
 
 ; unique list
-(= (unique Nil) Nil)
-(= (unique (Cons $a $b))
+(= (unique-list Nil) Nil)
+(= (unique-list (Cons $a $b))
    (if (found $a $b)
-       (unique $b)
-       (Cons $a (unique $b))))
+       (unique-list $b)
+       (Cons $a (unique-list $b))))
 
-!(unique (Cons A (Cons B (Cons A (Cons C (Cons B Nil))))))
+!(unique-list (Cons A (Cons B (Cons A (Cons C (Cons B Nil))))))
 
 
 ;Take N elements
