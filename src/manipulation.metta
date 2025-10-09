@@ -35,29 +35,40 @@
 
 !(reverse (Cons 1 (Cons 2 (Cons 3 Nil))))
 
-;unique
+
+
+;;------------------------------------------
+; check if x is found in a list
 (= (found $x Nil) False)
 (= (found $x (Cons $a $b))
    (if (== $x $a)
        True
        (found $x $b)))
 
-; unique list
-(= (unique-list Nil) Nil)
-(= (unique-list (Cons $a $b))
-   (if (found $a $b)
-       (unique-list $b)
-       (Cons $a (unique-list $b))))
+
+(= (unique-list-helper $seen Nil) Nil)
+(= (unique-list-helper $seen (Cons $a $b))
+   (if (found $a $seen)
+       (unique-list-helper $seen $b)
+       (Cons $a (unique-list-helper (Cons $a $seen) $b))))
+
+; wrapper
+(= (unique-list $xs)
+   (unique-list-helper Nil $xs))
+
 
 !(unique-list (Cons A (Cons B (Cons A (Cons C (Cons B Nil))))))
 
+;;-----------------------------------------------------------------
+
+
 
 ;Take N elements
-(= (take 0 $b) Nil)
 (= (take $n Nil) Nil)
 (= (take $n (Cons $a $b))
-    (Cons $a (take (- $n 1) $b)))
-
+   (if (> $n 0)
+       (Cons $a (take (- $n 1) $b))
+       Nil))
 ! (take 2 (Cons A (Cons B (Cons C (Cons D Nil))))) 
 
 
